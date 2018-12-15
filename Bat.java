@@ -1,0 +1,194 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.*;
+import java.io.*;
+import java.awt.event.*;
+
+public class Bat extends JFrame implements Runnable, ActionListener 
+{
+	BufferedImage img[];
+	Image img1;
+	MediaTracker med;
+	Toolkit tk;
+	Thread t;
+	int i1,i2,i3,i4,i5,i6,i7,i8,j,x=40,y=200,a=330,b=440;
+	MenuBar mbar;
+	Menu mn;
+	MenuItem m1,m2,m3;
+	
+	Bat()
+	{
+		
+		mbar=new MenuBar();
+		setMenuBar(mbar);
+
+		mn=new Menu("Action");
+		mbar.add(mn);
+
+		m1=new MenuItem("play");
+		mn.add(m1);
+
+		m1.addActionListener(this);
+
+		med=new MediaTracker(this);
+		tk=tk.getDefaultToolkit();
+		img=new BufferedImage[2];
+		img1=tk.getImage("a.jpg");
+		t=new Thread(this);
+		try
+		{
+			img[0]=ImageIO.read(new File("bat1.gif"));
+			img[1]=ImageIO.read(new File("bat2.gif"));
+		}
+		catch (Exception e)
+		{
+		}
+	
+
+		setSize(1368,720);
+		setLayout(null);
+		setVisible(true);
+
+	}
+	public void actionPerformed(ActionEvent e3)
+	{
+			t.start();
+	}
+	
+
+	public void run()
+	{
+		for (; ; )
+		{
+		
+		for(j=0;j<2;j++)
+		{
+
+			try
+			{
+				t.sleep(600);
+			}
+			catch (Exception e)
+			{
+			}
+			repaint();
+		}
+		for(i1=1;i1<60;i1++)
+			{
+				a+=2;
+				b+=2;
+			try
+			{
+				t.sleep(4);
+			}
+			catch (Exception e)
+			{
+			}
+			repaint();
+			}
+		if(i1==60)
+		{
+			for(i2=1;i2<198;i2++)
+			{
+				a+=4;
+				b--;
+				try
+				{
+					t.sleep(4);
+				}
+				catch (Exception e)
+				{
+				}
+				repaint();
+			}
+		}
+		if(i2==198)
+		{
+			for(i3=1;i3<85;i3++)
+			{
+				a-=2;
+				b-=2;
+				try
+				{
+					t.sleep(4);
+				}
+				catch (Exception e)
+				{
+				}
+				repaint();
+			}
+		}
+		if(i3==85)
+		{
+			for(i4=1;i4<123;i4++)
+			{
+				a-=4;
+				b+=3;
+				try
+				{
+					t.sleep(4);
+				}
+				catch (Exception e)
+				{
+				}
+				repaint();
+			}
+		}
+		if(i4==123)
+		{
+			for(i5=1;i5<80;i5++)
+			{
+				a-=2;
+				b-=2;
+				try
+				{
+					t.sleep(4);
+				}
+				catch (Exception e)
+				{
+				}
+				
+
+			repaint();
+			}
+		}
+			a=330;
+			b=440;
+		}
+	}
+
+	public void paint(Graphics g)
+	{
+		System.out.println(x);
+		super.paint(g);
+		Graphics2D g2=(Graphics2D)g;
+	
+		g2.drawImage(img1,0,0,this);
+		if(j<=1)
+		g2.drawImage(img[j],x,y,this);
+		if(j==2)
+		g2.drawImage(img[0],x,y,this);
+		g2.fillRect(310,580,950,13);
+		g2.fillRect(1260,180,13,413);
+		g2.fillRect(1050,180,210,13);
+//		g2.setColor(Color.red);
+//		g2.fillOval(a,b,23,23);
+		paint1(g2);	
+	}
+	public void paint1(Graphics g2)
+	{
+		System.out.println(i2);
+	//	super.paint(g);
+	//	Graphics2D g2=(Graphics2D)g;
+		g2.setColor(Color.red);
+		g2.fillOval(a,b,23,23);
+		
+	
+	}
+
+	public static void main(String[] args) 
+	{
+		new Bat();
+	}
+}
